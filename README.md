@@ -3,6 +3,7 @@ Todo List Go
 Libraries
 
 ``` bash
+go get github.com/sirupsen/logrus
 go get github.com/gin-gonic/gin
 go get github.com/jmoiron/sqlx
 go get github.com/spf13/viper
