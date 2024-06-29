@@ -3,12 +3,13 @@ Todo List Go
 Libraries
 
 ``` bash
-go get github.com/sirupsen/logrus
 go get github.com/gin-gonic/gin
 go get github.com/jmoiron/sqlx
 go get github.com/spf13/viper
 go get github.com/lib/pq
 go get github.com/joho/godotenv
+go get github.com/sirupsen/logrus
+go get -u github.com/golang-jwt/jwt/v5
 ```
 
 Commands
