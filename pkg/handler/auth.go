@@ -20,7 +20,7 @@ func (h *Handler) signUp(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, map[string]interface{}{
+	c.JSON(http.StatusCreated, map[string]interface{}{
 		"id": id,
 	})
 }
