@@ -16,7 +16,14 @@ Todo List Go
     ```
    Open the `.env` file and replace the placeholders with your actual values.
 
-
+4. Up database Postgres
+     ```bash
+    docker pull posgress
+    docker run --name=todo-db -e POSTGRES_PASSWORD='qwerty' -p 5436:5432 -d --rm postgres
+   
+    migrate -path ./schema/ -database 'postgres://postgres:qwerty@localhost:5436?sslmode=disable' up
+    ```
+   
 Libraries
 
 ``` bash
@@ -52,15 +59,14 @@ migrate -path ./schema/ -database 'postgres://postgres:qwerty@localhost:5436?ssl
 
 ### Auth
 
-#### Register a new user
+#### Register User
 - **Endpoint:** `POST /auth/sign-up`
-- **Description:** Create a new user. The request body should contain the user information in JSON format.
 - **Example request body:**
     ```json
     {
-        "name": "Tolebi",
-        "username": "tolebi",
-        "password": "qwerty"
+      "name": "Tolebi",
+      "username": "tolebi",
+      "password": "qwerty"
     }
     ```
 - **Example response:**
@@ -69,6 +75,65 @@ migrate -path ./schema/ -database 'postgres://postgres:qwerty@localhost:5436?ssl
     Content-Type: application/json
 
     {
-        "id": 1
+      "id": 1
+    }
+    ```
+#### Login User
+- **Endpoint:** `POST /auth/sign-in`
+- **Example request body:**
+    ```json
+    {
+      "username" : "tolebi",
+      "password" : "qwerty"
+    }
+    ```
+- **Example response:**
+    ```json
+    HTTP/1.1 200 HTTP OK
+    Content-Type: application/json
+
+    {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTk3OTAxODcsImlhdCI6MTcxOTc0Njk4NywidXNlcl9pZCI6MX0.WeRMEKDjHUmXvS--sWeYmUqHnD-WyfvxZnYjfbJEcrQ"
+    }
+    ```
+#### Create List
+- **Endpoint:** `POST /api/lists`
+- **Example request body:**
+    ```json
+     "Authorization": "Bearer token"
+  
+    {
+      "title" : "Список продуктов",
+      "description" : "Купи себе нормалный"
+    }
+    ```
+- **Example response:**
+    ```json
+    HTTP/1.1 201 Created
+    Content-Type: application/json
+  
+    {
+      "id": 3
+    }
+    ```
+#### Get All Lists
+- **Endpoint:** `GET /api/lists`
+- **Example request body:**
+    ```json
+    "Authorization": "Bearer token"
+    ```
+- **Example response:**
+    ```json
+    HTTP/1.1 200 HTTP OK
+    Content-Type: application/json
+  
+    {
+        "data": [
+            {
+                "id": 1,
+                "title": "Список продуктов",
+                "description": ""
+            }
+        ]
     }
     ```
